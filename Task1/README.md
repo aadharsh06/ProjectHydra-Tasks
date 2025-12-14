@@ -33,25 +33,23 @@ Final step was committing the changes to GitHub.
 
 ## Observations
 
-Running docker compose: 
-`(venv) aadharsh-venkat@aadharsh-venkat-IdeaPad-Slim-3-15AMN8:~/proj-hydra/Task1$ docker compose up`
-[+] Running 5/5
- ✔ Network task1_hydra-net       Created                                                                                                    0.1s 
- ✔ Container task1-hydrabase-1   Created                                                                                                    0.1s 
- ✔ Container grafana             Created                                                                                                    0.1s 
- ✔ Container task1-pyexporter-1  Created                                                                                                    0.1s 
- ✔ Container task1-prometheus-1  Created                                                                                                    0.1s `
- ...
-hydrabase-1   | INFO:     172.19.0.4:58774 - "GET /health HTTP/1.1" 200 OK
-hydrabase-1   | INFO:     172.19.0.4:58788 - "GET /metrics HTTP/1.1" 200 OK
-hydrabase-1   | INFO:     172.19.0.4:58792 - "GET /simulate_failure HTTP/1.1" 200 OK
-hydrabase-1   | INFO:     172.19.0.4:41734 - "GET /health HTTP/1.1" 200 OK
-hydrabase-1   | INFO:     172.19.0.4:41738 - "GET /metrics HTTP/1.1" 200 OK
-hydrabase-1   | INFO:     172.19.0.4:41754 - "GET /simulate_failure HTTP/1.1" 200 OK
+Running docker compose:\
+`(venv) aadharsh-venkat@aadharsh-venkat-IdeaPad-Slim-3-15AMN8:~/proj-hydra/Task1$ docker compose up`\
+[+] Running 5/5\
+ ✔ Network task1_hydra-net       Created                                                                                                 0.1s\
+ ✔ Container task1-hydrabase-1   Created                                                                                                  0.1s\
+ ✔ Container grafana             Created                                                                                                    0.1s\
+ ✔ Container task1-pyexporter-1  Created                                                                                                    0.1s\
+ ✔ Container task1-prometheus-1  Created                                                                                                    0.1s\
+ ...\
+hydrabase-1   | INFO:     172.19.0.4:58774 - "GET /health HTTP/1.1" 200 OK\
+hydrabase-1   | INFO:     172.19.0.4:58788 - "GET /metrics HTTP/1.1" 200 OK\
+hydrabase-1   | INFO:     172.19.0.4:58792 - "GET /simulate_failure HTTP/1.1" 200 OK\
+hydrabase-1   | INFO:     172.19.0.4:41734 - "GET /health HTTP/1.1" 200 OK\
+hydrabase-1   | INFO:     172.19.0.4:41738 - "GET /metrics HTTP/1.1" 200 OK\
+hydrabase-1   | INFO:     172.19.0.4:41754 - "GET /simulate_failure HTTP/1.1" 200 OK\
 ...
 
 ## Issues Faced & Fixes
 - My main issue was with the ports, which I had to troubleshoot for quite a while. Getting everything to work by connecting on the right ports.
 - I directly tried to connect pyexporter to grafana, which did not work. Then I learnt that Grafana needed a full fledged Prometheus API, which I later implemented.
-
-
