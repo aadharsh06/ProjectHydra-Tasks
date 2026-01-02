@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  fetch-stock:
+    build: fetch-stock
+    ports:
+      - "8000:8000"
+    networks:
+      - hydra-network
+    volumes:
+      - persist:/fetch-stock
+  front-dash:
+    build: front-dash
+    ports:
+      - "8080:8080"
+    networks:
+      - hydra-network
+    depends_on:
+      - fetch-stock
+    volumes:
+      - persist:/front-dash
+  py-exp:
+    build: py-exp
+    ports:
+      - "8600:8600"
+    networks:
+      - hydra-network
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    depends_on:
+      - py-exp
+    networks:
+      - hydra-network
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - hydra-network
+
+volumes:
+  persist:
+  grafana-storage:
+
+networks:
+  hydra-network:

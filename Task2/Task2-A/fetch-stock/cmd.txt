@@ -1,0 +1,2 @@
+docker build -t stock_fetch .
+docker run -p 8000:8000 stock_fetch
