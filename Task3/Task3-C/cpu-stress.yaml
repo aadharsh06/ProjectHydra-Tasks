@@ -1,0 +1,16 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: cpu-stress-backend
+spec:
+  mode: one
+  duration: "120s"
+  selector:
+    namespaces:
+      - monitoring
+    labelSelectors:
+      app: fetch-new
+  stressors:
+    cpu:
+      workers: 2
+      load: 95

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fetch-new
+  labels:
+    app: fetch-new
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fetch-new
+  template:
+    metadata:
+      labels:
+        app: fetch-new
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: fetch-new
+        image: fetch-new:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+      dnsConfig:
+        options:
+          - name: "ndots"
+            value: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fetch-new
+spec:
+  selector:
+    app: fetch-new
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30000
+  type: LoadBalancer
+

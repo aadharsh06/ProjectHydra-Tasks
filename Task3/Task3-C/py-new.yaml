@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-new
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: py-new
+  template:
+    metadata:
+      labels:
+        app: py-new
+    spec:
+      containers:
+        - name: py-new
+          image: py-new:latest
+          imagePullPolicy: Never
+          ports:
+            - name: metrics
+              containerPort: 8600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: py-new
+  labels:
+    app: py-new
+spec:
+  selector:
+    app: py-new
+  ports:
+    - name: metrics
+      port: 8600
+      targetPort: 8600
+      nodePort: 30070
+  type: LoadBalancer
+
